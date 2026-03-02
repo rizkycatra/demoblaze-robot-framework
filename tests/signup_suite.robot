@@ -1,11 +1,14 @@
 *** Settings ***
 Resource    ../resources/page_objects/signup_keywords.resource
+Resource    ../resources/page_objects/login_keywords.resource
 Test Setup    User Open The Website
 Test Teardown    Finish Test
 
 *** Test Cases ***
-Signup With Valid Credentials
-    User Signup With Valid Credentials
+New User Can Signup And Login
+    ${username}    ${password}=    User Signup With Valid Credentials
+    User Login with Credentials    ${username}    ${password}
+    Verify Login Success    ${username}
 
 Signup With Invalid Credentials
     [Template]    User Signup With Invalid Credentials

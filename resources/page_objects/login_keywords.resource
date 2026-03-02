@@ -1,5 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
+Resource    common.resource
 
 *** Keywords ***
 User Login with Credentials

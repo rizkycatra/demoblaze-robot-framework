@@ -8,4 +8,4 @@ User Open The Website
     Maximize Browser Window
 
 Finish Test
-    Close All Browsers
+    Close Browser

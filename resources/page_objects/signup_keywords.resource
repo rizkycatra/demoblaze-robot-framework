@@ -15,9 +15,8 @@ User Signup With Valid Credentials
     Input Password    id:sign-password    ${password}
     Click Button    xpath=//button[normalize-space()='Sign up']
     Alert Should Be Present    Sign up successful.    ACCEPT
-    #To make sure the username and password laready created by logging in
-    User Login with Credentials    ${username}    ${password}
-    Verify Login Success    ${username}
+    # return the generated credentials so the caller can log in if needed
+    RETURN   ${username}    ${password}
 
 User Signup With Invalid Credentials
     [Arguments]    ${username}    ${password}    ${error}
