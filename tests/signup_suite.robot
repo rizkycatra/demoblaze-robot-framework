@@ -1,6 +1,5 @@
 *** Settings ***
 Resource    ../resources/page_objects/signup_keywords.resource
-Resource    ../resources/page_objects/login_keywords.resource
 Test Setup    User Open The Website
 Test Teardown    Finish Test
 
