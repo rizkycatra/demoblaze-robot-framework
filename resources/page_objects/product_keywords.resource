@@ -11,19 +11,20 @@ User Selects Category
     Wait Until Element Is Visible    link=${category}    timeout=10s
     Click Element    link=${category}
 
-User Selects Product
+User Selects Product And Add To Cart
     [Arguments]    ${product}
     Wait Until Element Is Visible    link=${product}    timeout=10s
     Click Element    link=${product}
     Wait Until Element Is Visible    xpath=//a[normalize-space()='Add to cart']    timeout=10s
     Click Element    xpath=//a[normalize-space()='Add to cart']
-    Alert Should Be Present    Product added.
+    Alert Should Be Present    Product added.    timeout=5s
+    Click Link    id:nava
     RETURN    ${product}
 
-User Adds Product To Cart
-    [Arguments]    ${products}
+User Checks The Product On Cart
+    [Arguments]    @{products}
     Click Link    id:cartur
-    FOR    ${product_cart}    IN    ${products}
+    FOR    ${product_cart}    IN    @{products}
         Wait Until Page Contains   ${product_cart}    timeout=10s
     END
 

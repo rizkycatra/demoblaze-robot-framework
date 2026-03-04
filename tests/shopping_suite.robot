@@ -10,7 +10,23 @@ User Successfully Purchases Product
     ${username}=    User Login with Credentials    rizkytest_1    password_1
     Verify Login Success    ${username}
     User Selects Category    Laptops
-    ${product}=    User Selects Product   Sony vaio i5
-    User Adds Product To Cart   ${product}
+    ${product}=    User Selects Product And Add To Cart   Sony vaio i5
+    User Checks The Product On Cart   ${product}
     ${name}    ${credit_card}    ${total_amount}=    User Completes Checkout
     Verify The Order Data    ${name}    ${credit_card}    ${total_amount}
+
+User Successfully Purchases Multiple Products
+    ${username}=    User Login with Credentials    rizkytest_1    password_1
+    Verify Login Success    ${username}
+    User Selects Category    Laptops
+    ${product_1}=    User Selects Product And Add To Cart    Sony vaio i7
+    User Selects Category    Monitors
+    ${product_2}=    User Selects Product And Add To Cart    Apple monitor 24
+    User Selects Category    Phones
+    ${product_3}=    User Selects Product And Add To Cart    HTC One M9
+    User Checks The Product On Cart    ${product_1}    ${product_2}    ${product_3}  
+    ${name}    ${credit_card}    ${total_amount}=    User Completes Checkout
+    Verify The Order Data    ${name}    ${credit_card}    ${total_amount}
+
+
+    
