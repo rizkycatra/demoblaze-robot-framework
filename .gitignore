@@ -5,6 +5,7 @@
 venv/
 results/
 __pycache__/
+.env
 
 # allow robot framework sources
 !tests/

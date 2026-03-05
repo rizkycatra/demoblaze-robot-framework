@@ -7,7 +7,7 @@ Test Teardown    Finish Test
 
 *** Test Cases ***
 User Successfully Purchases Product
-    ${username}=    User Login with Credentials    rizkytest_1    password_1
+    ${username}=    User Login with Credentials    ${DEFAULT_USER}    ${DEFAULT_PASS}
     Verify Login Success    ${username}
     User Selects Category    Laptops
     ${product}=    User Selects Product And Add To Cart   Sony vaio i5
@@ -16,7 +16,7 @@ User Successfully Purchases Product
     Verify The Order Data    ${name}    ${credit_card}    ${total_amount}
 
 User Successfully Purchases Multiple Products
-    ${username}=    User Login with Credentials    rizkytest_1    password_1
+    ${username}=    User Login with Credentials    ${DEFAULT_USER}    ${DEFAULT_PASS}
     Verify Login Success    ${username}
     User Selects Category    Laptops
     ${product_1}=    User Selects Product And Add To Cart    Sony vaio i7

@@ -8,16 +8,16 @@ Resource    common.resource
 *** Keywords ***
 User Selects Category
     [Arguments]    ${category}
-    Wait Until Element Is Visible    link=${category}    timeout=10s
+    Wait Until Element Is Visible    link=${category}    timeout=${TIMEOUT}
     Click Element    link=${category}
 
 User Selects Product And Add To Cart
     [Arguments]    ${product}
-    Wait Until Element Is Visible    link=${product}    timeout=10s
+    Wait Until Element Is Visible    link=${product}    timeout=${TIMEOUT}
     Click Element    link=${product}
-    Wait Until Element Is Visible    xpath=//a[normalize-space()='Add to cart']    timeout=10s
+    Wait Until Element Is Visible    xpath=//a[normalize-space()='Add to cart']    timeout=${TIMEOUT}
     Click Element    xpath=//a[normalize-space()='Add to cart']
-    Alert Should Be Present    Product added.    timeout=5s
+    Alert Should Be Present    Product added.    timeout=${TIMEOUT}
     Click Link    id:nava
     RETURN    ${product}
 
@@ -25,14 +25,14 @@ User Checks The Product On Cart
     [Arguments]    @{products}
     Click Link    id:cartur
     FOR    ${product_cart}    IN    @{products}
-        Wait Until Page Contains   ${product_cart}    timeout=10s
+        Wait Until Page Contains   ${product_cart}    timeout=${TIMEOUT}
     END
 
 User Completes Checkout
     Click Button    xpath=//button[normalize-space()='Place Order']
-    Wait Until Element Is Visible    id:orderModal    timeout=10s
+    Wait Until Element Is Visible    id:orderModal    timeout=${TIMEOUT}
     #Get and Clean the total amount
-    Wait Until Element Is Visible    id:totalm    timeout=10s
+    Wait Until Element Is Visible    id:totalm    timeout=${TIMEOUT}
     ${get_total_amount}=    Get Text    id:totalm  
     ${fix_total_amount}=    Remove String    ${get_total_amount}    Total:
     ${total_amount}=    Strip String    ${fix_total_amount} 
@@ -50,7 +50,7 @@ User Completes Checkout
     Input Text    id:month    ${cc_month}
     Input Text    id:year    ${cc_year}
     Click Button    xpath=//button[normalize-space()='Purchase']
-    Wait Until Page Contains    Thank you for your purchase!    timeout=10s
+    Wait Until Page Contains    Thank you for your purchase!    timeout=${TIMEOUT}
     RETURN    ${name}    ${creditcard}    ${total_amount}
 
 Verify The Order Data
