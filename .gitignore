@@ -13,6 +13,7 @@ __pycache__/
 !variables/
 !*.robot
 !*.resource
+!*.env.example
 
 # allow root-level configuration files
 !/.gitignore
