@@ -11,9 +11,10 @@ This repository contains a Robot Framework test suite for the [Demoblaze](https:
 
 ## Tech stack
 
-- Robot Framework
-- Selenium (used via Robot Framework libraries)
-- Python (for environment management)
+- Framework: Robot Framework
+- Library: Robot Framework SeleniumLibrary
+- Programming Language: Python (for environment management)
+- CI/CD: GitHub Actions
 
 ## Repository structure
 
