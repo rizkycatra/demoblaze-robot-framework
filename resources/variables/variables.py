@@ -11,7 +11,6 @@ def get_chrome_driver_path():
 #env
 URL= "https://www.demoblaze.com"
 BROWSER= "chrome"
-DRIVER_PATH = get_chrome_driver_path()
 
 #timeouts
 TIMEOUT= "10s"
