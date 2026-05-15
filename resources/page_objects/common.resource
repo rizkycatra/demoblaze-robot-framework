@@ -18,11 +18,7 @@ User Open The Website
         Call Method    ${options}    add_argument    --window-size\=1920,1080
     END
 
-    ${service}=    Evaluate
-    ...    sys.modules['selenium.webdriver.chrome.service'].Service(executable_path=r'${dynamic_driver_path}')
-    ...    sys
-
-    Create Webdriver    Chrome    options=${options}    service=${service}
+    Create Webdriver    Chrome    options=${options}
 
     Go To    ${URL}
     IF    not ${is_headless}    Maximize Browser Window
