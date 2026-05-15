@@ -7,7 +7,6 @@ Variables       ../variables/variables.py
 *** Keywords ***
 User Open The Website
     [Arguments]    ${is_headless}=${False}
-    ${dynamic_driver_path}=    Get Chrome Driver Path
 
     ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys
     IF    ${is_headless}
