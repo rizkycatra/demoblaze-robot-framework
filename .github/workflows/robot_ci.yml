@@ -28,10 +28,15 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
-    - name: Install Google Chrome
+    - name: Install Chrome for Testing
       run: |
-        sudo apt-get update
-        sudo apt-get install -y google-chrome-stable
+        npx @puppeteer/browsers install chrome@stable
+        npx @puppeteer/browsers install chromedriver@stable
+        # Cari lokasi install-nya dan masukkan ke PATH
+        CHROME_PATH=$(find $GITHUB_WORKSPACE -name chrome -type f -executable | head -n 1)
+        DRIVER_PATH=$(find $GITHUB_WORKSPACE -name chromedriver -type f -executable | head -n 1)
+        echo "CHROME_BIN=$CHROME_PATH" >> $GITHUB_ENV
+        echo "CHROME_DRIVER=$DRIVER_PATH" >> $GITHUB_ENV
     
     - name: Create .env file
       run: |
