@@ -28,10 +28,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
-    - name: Create .env file
+    - name: Create Env File
       run: |
-        echo "DEFAULT_USER=${{ secrets.DEFAULT_USER }}" >> .env
-        echo "DEFAULT_PASS=${{ secrets.DEFAULT_PASS }}" >> .env
+        echo "${{ secrets.CREDENTIALS }}" > .env
 
     - name: Run The Tests
       run: |

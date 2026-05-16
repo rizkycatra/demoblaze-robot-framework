@@ -8,12 +8,17 @@ User Open The Website
     [Arguments]    ${is_headless}=${False}
 
     IF    '${is_headless}' == 'True' or '${is_headless}' == 'true' or '${is_headless}' == '${True}'
-        ${options}=    Set Variable
-        ...    add_argument("--headless=new");add_argument("--no-sandbox");add_argument("--disable-dev-shm-usage");add_argument("--disable-gpu");add_argument("--window-size=1920,1080")
+        ${options}=    Evaluate    selenium.webdriver.ChromeOptions()    selenium.webdriver
+        Call Method    ${options}    add_argument    --headless=new
+        Call Method    ${options}    add_argument    --no-sandbox
+        Call Method    ${options}    add_argument    --disable-dev-shm-usage
+        Call Method    ${options}    add_argument    --disable-gpu
+        Call Method    ${options}    add_argument    --window-size=1920,1080
 
-        Open Browser    ${URL}    browser=chrome    options=${options}
+        Create Webdriver    Chrome    options=${options}
+        Go To    ${URL}
     ELSE
-        Open Browser    ${URL}    browser=chrome
+        Open Browser    ${URL}    ${BROWSER}
         Maximize Browser Window
     END
 
