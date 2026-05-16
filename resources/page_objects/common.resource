@@ -1,5 +1,6 @@
 *** Settings ***
 Library         SeleniumLibrary
+Library         Collections
 Library         ../variables/variables.py
 Variables       ../variables/variables.py
 
@@ -9,14 +10,17 @@ User Open The Website
     [Arguments]    ${is_headless}=${False}
 
     IF    ${is_headless}
-        ${firefox_options}=    Evaluate    sys.modules['selenium.webdriver'].FirefoxOptions()    sys
-        Call Method    ${firefox_options}    add_argument    --headless
+        ${chrome_arguments}=    Create List
+        ...    --no-sandbox
+        ...    --disable-dev-shm-usage
+        ...    --disable-gpu
+        ...    --window-size=1920,1080
 
-        Open Browser    ${URL}    browser=firefox    options=${firefox_options}
+        ${options}=    Create Dictionary    args=${chrome_arguments}
+
+        Open Browser    ${URL}    browser=headlesschrome    options=${options}
     ELSE
-        ${chrome_options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys
-        Create Webdriver    Chrome    options=${chrome_options}
-        Go To    ${URL}
+        Open Browser    ${URL}    browser=chrome
         Maximize Browser Window
     END
 
