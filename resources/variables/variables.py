@@ -10,5 +10,5 @@ BROWSER= "chrome"
 TIMEOUT= "10s"
 
 #credentials
-DEFAULT_USER= os.getenv("DEFAULT_USER")
-DEFAULT_PASS= os.getenv("DEFAULT_PASS")
+DEFAULT_USER = os.getenv("DEFAULT_USER", "")
+DEFAULT_PASS = os.getenv("DEFAULT_PASS", "")
