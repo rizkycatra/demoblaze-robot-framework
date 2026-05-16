@@ -1,15 +1,15 @@
-import  os
+import os
 from dotenv import load_dotenv
 load_dotenv()
 
-#env
-URL= "https://www.demoblaze.com"
-BROWSER= "chrome"
+# env
+URL = "https://www.demoblaze.com"
+BROWSER = "chrome"
 IS_HEADLESS = False
 
-#timeouts
-TIMEOUT= "10s"
+# timeouts
+TIMEOUT = "10s"
 
-#credentials
+# credentials
 DEFAULT_USER = os.getenv("DEFAULT_USER", "")
 DEFAULT_PASS = os.getenv("DEFAULT_PASS", "")

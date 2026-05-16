@@ -2,13 +2,12 @@ name: Demoblaze CI
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
   pull_request:
-    branches:
-      - main
-      - master
+    branches: [main, master]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   run-tests:
@@ -29,20 +28,10 @@ jobs:
         pip install -r requirements.txt
     
     - name: Create Env File
-      run: |
-        echo "${{ secrets.CREDENTIALS }}" > .env
+      run: echo "${{ secrets.CREDENTIALS }}" > .env
 
     - name: Run The Tests
-      run: |
-        robot -d results --variable IS_HEADLESS:true tests/
-    
-    - name: Print Webdriver Logs on Failure
-      if: failure()
-      run: |
-        echo "=== GEKODRIVER / CHROMEDRIVER LOGS ==="
-        cat results/geckodriver-*.log 2>/dev/null || true
-        cat chromedriver.log 2>/dev/null || true
-        cat nodedebug.log 2>/dev/null || true
+      run: robot -d results --variable IS_HEADLESS:true tests/
 
     - name: Save the report (artifacts)
       if: always()
