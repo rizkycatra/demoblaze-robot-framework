@@ -5,6 +5,7 @@ load_dotenv()
 #env
 URL= "https://www.demoblaze.com"
 BROWSER= "chrome"
+IS_HEADLESS = False
 
 #timeouts
 TIMEOUT= "10s"

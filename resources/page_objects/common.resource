@@ -5,9 +5,7 @@ Variables       ../variables/variables.py
 
 *** Keywords ***
 User Open The Website
-    [Arguments]    ${is_headless}=${False}
-
-    IF    '${is_headless}' == 'True' or '${is_headless}' == 'true' or '${is_headless}' == '${True}'
+    IF    '${IS_HEADLESS}' == 'True' or '${IS_HEADLESS}' == 'true' or '${IS_HEADLESS}' == '${True}'
         ${options}=    Evaluate    selenium.webdriver.ChromeOptions()    selenium.webdriver
         Call Method    ${options}    add_argument    --headless=new
         Call Method    ${options}    add_argument    --no-sandbox

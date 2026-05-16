@@ -34,7 +34,7 @@ jobs:
 
     - name: Run The Tests
       run: |
-        robot -d results --variable is_headless:true tests/
+        robot -d results --variable IS_HEADLESS:true tests/
     
     - name: Print Webdriver Logs on Failure
       if: failure()
