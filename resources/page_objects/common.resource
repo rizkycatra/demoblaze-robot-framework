@@ -1,6 +1,6 @@
 *** Settings ***
 Library         SeleniumLibrary
-Library         String
+Library         Collections
 Library         ../variables/variables.py
 Variables       ../variables/variables.py
 
@@ -9,17 +9,15 @@ Variables       ../variables/variables.py
 User Open The Website
     [Arguments]    ${is_headless}=${False}
 
-    ${headless_str}=    Convert To Lowercase    ${is_headless}
-
-    IF    '${headless_str}' == 'true'
+    IF    '${is_headless}' == 'True' or '${is_headless}' == 'true' or '${is_headless}' == '${True}'
         ${chrome_arguments}=    Create List
         ...    --headless=new
         ...    --no-sandbox
         ...    --disable-dev-shm-usage
         ...    --disable-gpu
         ...    --window-size=1920,1080
-        ${options}=    Create Dictionary    args=${chrome_arguments}
 
+        ${options}=    Create Dictionary    args=${chrome_arguments}
         Open Browser    ${URL}    browser=chrome    options=${options}
     ELSE
         Open Browser    ${URL}    browser=chrome
