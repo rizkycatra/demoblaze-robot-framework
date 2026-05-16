@@ -1,7 +1,6 @@
 *** Settings ***
 Library         SeleniumLibrary
 Library         ../variables/variables.py
-Library         OperatingSystem
 Variables       ../variables/variables.py
 
 
@@ -9,26 +8,17 @@ Variables       ../variables/variables.py
 User Open The Website
     [Arguments]    ${is_headless}=${False}
 
-    ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys
-
-    ${chrome_bin}=    Get Environment Variable    CHROME_BIN    ${None}
-    IF    '${chrome_bin}' != '${None}'
-        ${options.binary_location}=    Set Variable    ${chrome_bin}
-    END
-
-    Call Method    ${options}    add_argument    --no-sandbox
-    Call Method    ${options}    add_argument    --disable-dev-shm-usage
-    Call Method    ${options}    add_argument    --disable-gpu
-
     IF    ${is_headless}
-        Call Method    ${options}    add_argument    --headless
-        Call Method    ${options}    add_argument    --window-size\=1920,1080
+        ${firefox_options}=    Evaluate    sys.modules['selenium.webdriver'].FirefoxOptions()    sys
+        Call Method    ${firefox_options}    add_argument    --headless
+
+        Open Browser    ${URL}    browser=firefox    options=${firefox_options}
+    ELSE
+        ${chrome_options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys
+        Create Webdriver    Chrome    options=${chrome_options}
+        Go To    ${URL}
+        Maximize Browser Window
     END
-
-    Open Browser    ${URL}    browser=chrome    options=${options}
-
-    Go To    ${URL}
-    IF    not ${is_headless}    Maximize Browser Window
 
 Finish Test
     Close Browser

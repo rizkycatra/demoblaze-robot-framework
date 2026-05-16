@@ -28,16 +28,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
-    - name: Install Chrome for Testing
-      run: |
-        npx @puppeteer/browsers install chrome@stable
-        npx @puppeteer/browsers install chromedriver@stable
-        # Cari lokasi install-nya dan masukkan ke PATH
-        CHROME_PATH=$(find $GITHUB_WORKSPACE -name chrome -type f -executable | head -n 1)
-        DRIVER_PATH=$(find $GITHUB_WORKSPACE -name chromedriver -type f -executable | head -n 1)
-        echo "CHROME_BIN=$CHROME_PATH" >> $GITHUB_ENV
-        echo "CHROME_DRIVER=$DRIVER_PATH" >> $GITHUB_ENV
-    
     - name: Create .env file
       run: |
         echo "DEFAULT_USER=${{ secrets.DEFAULT_USER }}" >> .env
@@ -45,7 +35,15 @@ jobs:
 
     - name: Run The Tests
       run: |
-        robot -d results --variable is_headless:True tests/
+        robot -d results --variable is_headless:True tests/\
+    
+    - name: Print Webdriver Logs on Failure
+      if: failure()
+      run: |
+        echo "=== GEKODRIVER / CHROMEDRIVER LOGS ==="
+        cat results/geckodriver-*.log 2>/dev/null || true
+        cat chromedriver.log 2>/dev/null || true
+        cat nodedebug.log 2>/dev/null || true
 
     - name: Save the report (artifacts)
       if: always()
