@@ -14,11 +14,12 @@ User Open The Website
         ...    --no-sandbox
         ...    --disable-dev-shm-usage
         ...    --disable-gpu
-        ...    --window-size=1920,1080
+        ...    --headless=new
 
         ${options}=    Create Dictionary    args=${chrome_arguments}
 
-        Open Browser    ${URL}    browser=headlesschrome    options=${options}
+        # Gunakan browser=chrome namun disuntik dengan options di atas
+        Open Browser    ${URL}    browser=chrome    options=${options}
     ELSE
         Open Browser    ${URL}    browser=chrome
         Maximize Browser Window
