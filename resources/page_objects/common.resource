@@ -1,5 +1,6 @@
 *** Settings ***
 Library         SeleniumLibrary
+Library         String
 Library         ../variables/variables.py
 Variables       ../variables/variables.py
 
@@ -8,15 +9,20 @@ Variables       ../variables/variables.py
 User Open The Website
     [Arguments]    ${is_headless}=${False}
 
-    IF    ${is_headless}
-        ${firefox_options}=    Evaluate    sys.modules['selenium.webdriver'].FirefoxOptions()    sys
-        Call Method    ${firefox_options}    add_argument    --headless
+    ${headless_str}=    Convert To Lowercase    ${is_headless}
 
-        Open Browser    ${URL}    browser=firefox    options=${firefox_options}
+    IF    '${headless_str}' == 'true'
+        ${chrome_arguments}=    Create List
+        ...    --headless=new
+        ...    --no-sandbox
+        ...    --disable-dev-shm-usage
+        ...    --disable-gpu
+        ...    --window-size=1920,1080
+        ${options}=    Create Dictionary    args=${chrome_arguments}
+
+        Open Browser    ${URL}    browser=chrome    options=${options}
     ELSE
-        ${chrome_options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys
-        Create Webdriver    Chrome    options=${chrome_options}
-        Go To    ${URL}
+        Open Browser    ${URL}    browser=chrome
         Maximize Browser Window
     END
 
