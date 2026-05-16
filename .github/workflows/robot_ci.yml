@@ -35,6 +35,7 @@ jobs:
 
     - name: Run The Tests
       run: |
+        sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0        
         robot -d results --variable is_headless:True tests/
     
     - name: Print Webdriver Logs on Failure
