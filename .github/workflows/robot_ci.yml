@@ -34,8 +34,6 @@ jobs:
         echo "DEFAULT_PASS=${{ secrets.DEFAULT_PASS }}" >> .env
 
     - name: Run The Tests
-      env:
-        CHROME_DEVEL_SANDBOX: "0"
       run: |
         robot -d results --variable is_headless:True tests/
     
