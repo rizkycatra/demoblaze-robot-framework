@@ -5,6 +5,8 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+  schedule:
+    - cron: '0 0 * * *'
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -30,7 +32,12 @@ jobs:
     - name: Create Env File
       run: echo "${{ secrets.CREDENTIALS }}" > .env
 
-    - name: Run The Tests
+    - name: Run Smoke Tests
+      if: github.event_name == 'push' && github.event_name == 'pull_request'
+      run: robot -d results --variable IS_HEADLESS:true --include smoke tests/
+    
+    - name: Run Full Regression Tests
+      if: github.event_name == 'schedule'
       run: robot -d results --variable IS_HEADLESS:true tests/
 
     - name: Save the report (artifacts)

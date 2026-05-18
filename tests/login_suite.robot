@@ -1,10 +1,13 @@
 *** Settings ***
-Resource    ../resources/page_objects/login_keywords.resource
-Test Setup    User Open The Website
-Test Teardown    Finish Test
+Resource            ../resources/page_objects/login_keywords.resource
+
+Test Setup          User Open The Website
+Test Teardown       Finish Test
+
 
 *** Test Cases ***
 Login With Valid Credentials
+    [Tags]    smoke
     ${username}=    User Login with Credentials    ${DEFAULT_USER}    ${DEFAULT_PASS}
     Verify Login Success    ${username}
 
